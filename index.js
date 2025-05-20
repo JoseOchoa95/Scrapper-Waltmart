@@ -1,5 +1,5 @@
 const { downloadImagesSequentially } = require('./downloader');
-const { pool } = require('./db');
+const { poolDB } = require('./db');
 
 (async () => {
 
@@ -8,14 +8,14 @@ const { pool } = require('./db');
 
     try{
 
-        const pool = await pool.connect()
+        const pool = await poolDB.connect()
         
         /*
         Consultamos a la db, este select nos traerá los códigos de barras de todos los
         artículos.
         */
 
-        const result = await pool.request().query('SELECT cod_bar FROM tabla');
+        const result = await pool.request().query('SELECT cve_lar, art FROM inviar');
     
         console.log("Conexión establecida");
 
@@ -28,7 +28,7 @@ const { pool } = require('./db');
             de un producto es '7501055900800', debe quedar '00750105590080L'.
             */
 
-            nombresUrls.push(result.recordsets[0][i].cve_lar.trim() + '.webp');
+            nombresUrls.push(result.recordsets[0][i].art.trim() + '.webp');
 
             let cve = result.recordsets[0][i].cve_lar.trim().slice(0, -1) + 'L';
             while(cve.length < 15){
@@ -43,7 +43,7 @@ const { pool } = require('./db');
     }
     
     try {
-        await downloadImagesSequentially(imageUrls, nombresUrls, 'C:/var');
+        await downloadImagesSequentially(imageUrls, nombresUrls, 'C:/tmp');
     } catch (error) {
         console.error('Error en la aplicación:', error);
     }

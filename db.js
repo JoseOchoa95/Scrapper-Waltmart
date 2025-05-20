@@ -18,8 +18,8 @@ const config = {
 }
 
 //! CREACIÓN DE CONEXIONES Y TESTEO
-const pool = new sql.ConnectionPool(config)
-pool.connect()
+const poolDB = new sql.ConnectionPool(config)
+poolDB.connect()
 .then(() => {
 })
 .catch((err) => {
@@ -28,5 +28,5 @@ pool.connect()
 
 //! EXPORTA LAS CONEXIONES
 module.exports = {
-    pool
+    poolDB
 }
