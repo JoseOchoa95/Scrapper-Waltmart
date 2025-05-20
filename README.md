@@ -24,8 +24,8 @@ Herramienta de descarga de imágenes con registro de errores, diseñada para Nod
 ## 🛠 Instalación
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+git clone https://github.com/tu-usuario/Scrapper-Waltmart.git
+cd Scrapper-Waltmart
 npm install
 ```
 
