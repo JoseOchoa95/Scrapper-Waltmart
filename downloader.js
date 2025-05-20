@@ -2,6 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
+/**
+ * La función realiza la consulta imagen por imagen y en caso de
+ * obtenerse una respuesta 200, la imagen es almacenada, de lo
+ * contrario, se ignora, se escribe la consola de error en un
+ * archivo 'errores_descarga.log' y continua con la siguiente
+ * ruta.
+ * 
+ * @param {*} urls Array de strings que contiene las urls de las imagenes a descargar.
+ * @param {*} fileNames Array de strings que contiene el nombre + extensión de la imagen a guardar.
+ * @param {*} outputDir Directorio donde se almacenarán las imágenes y el log de errores.
+ */
 async function downloadImagesSequentially(urls, fileNames, outputDir) {
   if (!Array.isArray(urls) || !Array.isArray(fileNames) || urls.length !== fileNames.length) {
     throw new Error('Los parámetros urls y fileNames deben ser arrays de la misma longitud');
@@ -12,6 +23,7 @@ async function downloadImagesSequentially(urls, fileNames, outputDir) {
   let logContent = `=== LOG DE ERRORES - ${new Date().toISOString()} ===\n\n`;
 
   try {
+
     // Crear directorio si no existe
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
@@ -28,6 +40,7 @@ async function downloadImagesSequentially(urls, fileNames, outputDir) {
         
         console.log(`[${i+1}/${urls.length}] Intentando: ${fileName}`);
 
+        //Genera la solicitud
         const response = await axios({
           method: 'GET',
           url: url,

@@ -17,7 +17,7 @@ const config = {
     }
 }
 
-//! CREACIÓN DE CONEXIONES
+//! CREACIÓN DE CONEXIONES Y TESTEO
 const pool = new sql.ConnectionPool(config)
 pool.connect()
 .then(() => {
