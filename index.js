@@ -1,5 +1,5 @@
 const { downloadImagesSequentially } = require('./downloader');
-const { poolOfc } = require('./db');
+const { pool } = require('./db');
 
 // Ejemplo de uso
 (async () => {
@@ -9,7 +9,7 @@ const { poolOfc } = require('./db');
 
     try{
 
-        const pool = await poolOfc.connect()
+        const pool = await pool.connect()
         // Consulta a la base de datos
         const result = await pool.request().query('SELECT cve_lar FROM inviar');
     
